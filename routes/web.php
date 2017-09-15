@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/distant', 'DistantController@index');
+Route::get('/near', 'NearController@index');
+
