@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Package\HowToUse\Domain\VehicleInterface;
+use Package\HowToUse\Domain\NearUsecase;
 
 class NearController extends Controller
 {
@@ -12,7 +13,16 @@ class NearController extends Controller
     public function __construct(VehicleInterface $vehicleInterface){
         $this->vehicleInterface = $vehicleInterface;
     }
-    public function index(){
+
+    public function index()
+    {
         return view('near', ['massage' => $this->vehicleInterface->run()]);
     }
+
+    public function usecase()
+    {
+        $nearUsecase = app()->make(NearUsecase::class);
+        return view('near', ['massage' => $nearUsecase->useVehicleRun()]);
+    }
+
 }
