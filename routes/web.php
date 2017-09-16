@@ -20,4 +20,5 @@ Route::get('/distant/usecase', 'DistantController@usecase');
 Route::get('/near', 'NearController@index');
 Route::get('/near/usecase', 'NearController@usecase');
 Route::get('/go_to_city', 'DistantController@goToCityUsecase');
+Route::get('/eat', 'EatController@getItemName');
 
