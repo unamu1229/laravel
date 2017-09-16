@@ -16,5 +16,8 @@ Route::get('/', function () {
 });
 
 Route::get('/distant', 'DistantController@index');
+Route::get('/distant/usecase', 'DistantController@usecase');
 Route::get('/near', 'NearController@index');
+Route::get('/near/usecase', 'NearController@usecase');
+Route::get('/go_to_city', 'DistantController@goToCityUsecase');
 

@@ -10,6 +10,8 @@ use Package\HowToUse\Domain\DistantUsecase;
 use Package\HowToUse\Domain\NearUsecase;
 use Package\HowToUse\Domain\VehicleInterface;
 use App\Http\Controllers\NearController;
+use Package\HowToUse\Domain\GoToCityUsecase;
+use Package\HowToUse\Domain\Train;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -43,6 +45,8 @@ class AppServiceProvider extends ServiceProvider
                 return new Bicycle();
             });
 
+
+
         $this->app->when(DistantUsecase::class)
             ->needs(VehicleInterface::class)
             ->give(function(){
@@ -54,5 +58,12 @@ class AppServiceProvider extends ServiceProvider
             ->give(function(){
                 return new Bicycle();
             });
+
+
+
+        $this->app->resolving(GoToCityUsecase::class, function($goToCityUsecase){
+            $goToCityUsecase->setVehicle(new Train());
+            return $goToCityUsecase;
+        });
     }
 }

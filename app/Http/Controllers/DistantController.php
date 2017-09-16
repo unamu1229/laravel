@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Package\HowToUse\Domain\Train;
 use Package\HowToUse\Domain\VehicleInterface;
 use Package\HowToUse\Domain\DistantUsecase;
+use Package\HowToUse\Domain\GoToCityUsecase;
+
 
 class DistantController extends Controller
 {
@@ -16,7 +19,8 @@ class DistantController extends Controller
         $this->vehicleInterface = $vehicleInterface;
     }
 
-    public function index(){
+    public function index()
+    {
         return view('distant', ['massage' => $this->vehicleInterface->run()]);
     }
 
@@ -24,5 +28,11 @@ class DistantController extends Controller
     {
         $distantUsecase = app()->make(DistantUsecase::class);
         return view('distant', ['massage' => $distantUsecase->useVehicleRun()]);
+    }
+
+    public function goToCityUsecase()
+    {
+        $goToCityUsecase = app()->make(GoToCityUsecase::class);
+        return view('distant', ['massage' => $goToCityUsecase->useVehicleRun()]);
     }
 }
