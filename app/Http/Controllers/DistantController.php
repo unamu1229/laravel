@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Package\HowToUse\Domain\Train;
-use Package\HowToUse\Domain\VehicleInterface;
-use Package\HowToUse\Domain\DistantUsecase;
-use Package\HowToUse\Domain\GoToCityUsecase;
+use Package\HowToUse\Domain\UseCase\VehicleInterface;
+use Package\HowToUse\Domain\UseCase\DistantUsecase;
+use Package\HowToUse\Domain\UseCase\GoToCityUsecase;
 
 
 class DistantController extends Controller

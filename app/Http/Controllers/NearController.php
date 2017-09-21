@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Package\HowToUse\Domain\VehicleInterface;
-use Package\HowToUse\Domain\NearUsecase;
+use Package\HowToUse\Domain\UseCase\VehicleInterface;
+use Package\HowToUse\Domain\UseCase\NearUsecase;
 
 class NearController extends Controller
 {

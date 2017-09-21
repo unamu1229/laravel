@@ -3,15 +3,15 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Package\HowToUse\Domain\Bicycle;
-use Package\HowToUse\Domain\Car;
+use Package\HowToUse\Domain\Model\Bicycle;
+use Package\HowToUse\Domain\Model\Car;
 use App\Http\Controllers\DistantController;
-use Package\HowToUse\Domain\DistantUsecase;
-use Package\HowToUse\Domain\NearUsecase;
-use Package\HowToUse\Domain\VehicleInterface;
+use Package\HowToUse\Domain\UseCase\DistantUsecase;
+use Package\HowToUse\Domain\UseCase\NearUsecase;
+use Package\HowToUse\Domain\UseCase\VehicleInterface;
 use App\Http\Controllers\NearController;
-use Package\HowToUse\Domain\GoToCityUsecase;
-use Package\HowToUse\Domain\Train;
+use Package\HowToUse\Domain\UseCase\GoToCityUsecase;
+use Package\HowToUse\Domain\Model\Train;
 
 class AppServiceProvider extends ServiceProvider
 {

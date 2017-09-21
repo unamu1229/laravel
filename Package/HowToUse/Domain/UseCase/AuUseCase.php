@@ -1,7 +1,8 @@
 <?php
 
-namespace Package\HowToUse\Domain;
+namespace Package\HowToUse\Domain\UseCase;
 
+use Package\HowToUse\Domain\UseCase\KakuyasuSimInterface;
 
 class AuUseCase
 {

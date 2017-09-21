@@ -3,8 +3,7 @@
 
 namespace app\Http\Controllers;
 
-use Package\HowToUse\Domain\Nitsushin;
-use Package\HowToUse\Domain\InstantNoodleInterface;
+use Package\HowToUse\Domain\UseCase\InstantNoodleInterface;
 
 class EatController
 {

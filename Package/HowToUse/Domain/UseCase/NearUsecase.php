@@ -6,8 +6,9 @@
  * Time: 23:46
  */
 
-namespace Package\HowToUse\Domain;
+namespace Package\HowToUse\Domain\UseCase;
 
+use Package\HowToUse\Domain\UseCase\VehicleInterface;
 
 class NearUsecase
 {

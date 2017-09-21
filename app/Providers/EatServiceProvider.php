@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Package\HowToUse\Domain\InstantNoodleInterface;
-use Package\HowToUse\Domain\Nitsushin;
+use Package\HowToUse\Domain\UseCase\InstantNoodleInterface;
+use Package\HowToUse\Domain\Model\Nitsushin;
 
 class EatServiceProvider extends ServiceProvider
 {
