@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/distant', 'DistantController@index');
+Route::get('/distant/usecase', 'DistantController@usecase');
+Route::get('/near', 'NearController@index');
+Route::get('/near/usecase', 'NearController@usecase');
+Route::get('/go_to_city', 'DistantController@goToCityUsecase');
+Route::get('/eat', 'EatController@getItemName');
+Route::get('/smartphone/au', 'SmartPhoneController@au');
+Route::get('/smartphone/umoblie', 'SmartPhoneController@umoblie');
+
