@@ -11,8 +11,20 @@ class AuthorTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('author')->insert([
-            'name' => '尾田'
-        ]);
+        DB::table('author')->delete();
+        DB::table('author')->insert(
+            [
+                [
+                    'id' => 1,
+                    'name' => '尾田',
+                    'active' => 1
+                ],
+                [
+                    'id' => 2,
+                    'name' => '富樫',
+                    'active' => 0
+                ]
+            ]
+        );
     }
 }

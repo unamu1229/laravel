@@ -11,9 +11,18 @@ class BookTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('book')->insert([
-            'name' => 'ワンピース',
-            'author_id' => '1'
-        ]);
+        DB::table('book')->delete();
+        DB::table('book')->insert(
+            [
+                [
+                    'name' => 'ワンピース',
+                    'author_id' => '1'
+                ],
+                [
+                    'name' => 'ハンターハンター',
+                    'author_id' => '2'
+                ]
+            ]
+        );
     }
 }
