@@ -3,8 +3,8 @@
 
 namespace App\Http\Controllers;
 
-use Package\HowToUse\Domain\AuUseCase;
-use Package\HowToUse\Domain\SoftBankUseCase;
+use Package\HowToUse\Domain\UseCase\AuUseCase;
+use Package\HowToUse\Domain\UseCase\SoftBankUseCase;
 
 class SmartPhoneController extends Controller
 {

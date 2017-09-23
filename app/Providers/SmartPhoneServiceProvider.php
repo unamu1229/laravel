@@ -4,13 +4,12 @@ namespace App\Providers;
 
 use App\Http\Controllers\SmartPhoneController;
 use Illuminate\Support\ServiceProvider;
-use Package\HowToUse\Domain\AuUseCase;
-use Package\HowToUse\Domain\DocomoUseCase;
-use Package\HowToUse\Domain\KakuyasuSimInterface;
-use Package\HowToUse\Domain\Mineo;
-use Package\HowToUse\Domain\SoftBankUseCase;
-use Package\HowToUse\Domain\Storage;
-use Package\HowToUse\Domain\Umoblile;
+use Package\HowToUse\Domain\UseCase\AuUseCase;
+use Package\HowToUse\Domain\UseCase\KakuyasuSimInterface;
+use Package\HowToUse\Domain\Model\Mineo;
+use Package\HowToUse\Domain\UseCase\SoftBankUseCase;
+use Package\HowToUse\Domain\Model\Storage;
+use Package\HowToUse\Domain\Model\Umoblile;
 
 class SmartPhoneServiceProvider extends ServiceProvider
 {

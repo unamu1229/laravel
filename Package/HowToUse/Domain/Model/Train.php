@@ -6,8 +6,9 @@
  * Time: 9:58
  */
 
-namespace Package\HowToUse\Domain;
+namespace Package\HowToUse\Domain\Model;
 
+use Package\HowToUse\Domain\UseCase\VehicleInterface;
 
 class Train implements VehicleInterface
 {

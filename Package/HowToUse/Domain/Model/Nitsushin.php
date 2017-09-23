@@ -1,6 +1,8 @@
 <?php
 
-namespace Package\HowToUse\Domain;
+namespace Package\HowToUse\Domain\Model;
+
+use Package\HowToUse\Domain\UseCase\InstantNoodleInterface;
 
 class Nitsushin implements InstantNoodleInterface
 {

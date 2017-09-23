@@ -6,8 +6,9 @@
  * Time: 23:05
  */
 
-namespace Package\HowToUse\Domain;
+namespace Package\HowToUse\Domain\Model;
 
+use Package\HowToUse\Domain\UseCase\VehicleInterface;
 
 class Bicycle implements VehicleInterface
 {

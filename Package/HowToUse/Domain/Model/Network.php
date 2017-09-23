@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Package\HowToUse\Domain;
+namespace Package\HowToUse\Domain\Model;
 
 
 class Network
