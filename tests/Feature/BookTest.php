@@ -62,5 +62,29 @@ class BookTest extends TestCase
         $bookStatic->where('author_id', 2);
         $this->assertEquals($bookStatic->toSql(), "select * from `book` where `author_id` = ?");
 
+
+        $book = $bookRepository->getBook();
+        $books = $book->whereHas('author.income', function($query){
+            $query->where('money', 300000000);
+        })->get();
+        foreach($books as $book){
+            $this->assertEquals($book->name, 'ワンピース');
+            $this->assertEquals($book->author->name, '尾田');
+            $this->assertEquals($book->author->income->money, '300000000');
+        }
+
+        $assistants = ['田中','鈴木','斎藤','西田'];
+        $books = $book->whereHas('author.assistant', function($query){
+            $query->where('name', '田中');
+        })->get();
+        foreach($books as $book){
+            $this->assertEquals($book->name, 'ワンピース');
+            $this->assertEquals($book->author->name, '尾田');
+            $this->assertEquals($book->author->assistant->where('name', '田中')->first()->name, '田中');
+            foreach($book->author->assistant as $assistant){
+                $this->assertTrue(in_array($assistant->name, $assistants));
+            }
+        }
+
     }
 }
