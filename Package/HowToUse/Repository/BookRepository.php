@@ -8,16 +8,36 @@ use App\Book;
 class BookRepository
 {
 
-    private $eloquent;
+    /*
+     * App/Book
+     * DI直後はクエリーの状態を保持しない。
+     * クエリビルダーのメソッドの返り値でクエリーの状態を保持した Illuminate\Database\Eloquent\Builderを返す。
+     */
+    private $book;
+
+    /*
+     * Illuminate\Database\Eloquent\Builder
+     * クエリビルダーのメソッドの返り値の為、クエリーの状態を保持する。
+     */
+    private $eloquentBuilder;
 
     public function __construct(Book $book)
     {
-        $this->eloquent = $book;
+
+        $this->book = $book;
+
+        $this->eloquentBuilder = Book::select('*');
+
     }
 
-    public function getEloquent()
+    public function getBook()
     {
-        return $this->eloquent;
+        return $this->book;
+    }
+
+    public function getEloquentBuilder()
+    {
+        return $this->eloquentBuilder;
     }
 
 }

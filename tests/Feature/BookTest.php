@@ -19,7 +19,7 @@ class BookTest extends TestCase
 
 
         $bookRepository = $this->app->make(BookRepository::class);
-        $book = $bookRepository->getEloquent();
+        $book = $bookRepository->getBook();
 
         $books = $book->whereHas('author', function($query){
             $query->where('active', 0);
@@ -35,7 +35,7 @@ class BookTest extends TestCase
             })->toSql(),
             "select * from `book` where exists (select * from `author` where `book`.`author_id` = `author`.`id` and `active` = ?)"
         );
-        
+
         foreach($book->get() as $book){
             $authorsActive = $book->author()->where('active', 0)->get();
             foreach($authorsActive as $authorActive){
@@ -43,6 +43,24 @@ class BookTest extends TestCase
                 $this->assertEquals($authorActive->name, '富樫');
             }
         }
+
+
+
+        $book->where('author_id', 2);
+        // App/Bookは、上記のwhere句の状態を保持しない
+        $this->assertEquals($book->toSql(), "select * from `book`");
+
+        // App/Bookからのwhere句の返り値で、クエリーの状態を保持する Illuminate\Database\Eloquent\Builderを返す。
+        $book = $book->where('author_id', 2);
+        // Illuminate\Database\Eloquent\Builder なので返り値を変数で受けなくても、下記Where句のクエリーの状態を保持する。
+        $book->where('name', 'ハンターハンター');
+        $this->assertEquals($book->toSql(), "select * from `book` where `author_id` = ? and `name` = ?");
+
+
+
+        $bookStatic = $bookRepository->getEloquentBuilder();
+        $bookStatic->where('author_id', 2);
+        $this->assertEquals($bookStatic->toSql(), "select * from `book` where `author_id` = ?");
 
     }
 }
