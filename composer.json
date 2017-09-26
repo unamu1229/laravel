@@ -27,6 +27,10 @@
         }
     },
     "autoload-dev": {
+        "classmap": [
+            "database/seeds",
+            "database/factories"
+        ],
         "psr-4": {
             "Tests\\": "tests/"
         }
