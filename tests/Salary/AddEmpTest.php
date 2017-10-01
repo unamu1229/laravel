@@ -2,6 +2,7 @@
 
 namespace Tests\Salary;
 
+use Package\Salary\Service\CheckTransaction;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -11,13 +12,32 @@ class AddEmpTest extends TestCase
     public function testUseCase()
     {
         // ファイルのパスはコマンド打つディレクトリからのパス
-        $transaction = file_get_contents('tests/Salary/Transaction/AddEmp', true);
+        $transaction = file_get_contents('tests/Salary/Transaction/AddEmpIncorrectFormat', true);
         $rows = explode("\n", $transaction);
-        $empData = [];
+        $empsData = [];
         foreach($rows as $row){
-            $empData[] = explode(' ', $row);
+            $empsData[] = explode(' ', $row);
         }
-        print_r($empData);
+        $checkTransaction = new CheckTransaction();
+        try {
+            $checkTransaction->checkFormat($empsData);
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+            $this->assertTrue(true);
+            return;
+        }
+        print_r($empsData);
         $this->assertTrue(true);
+    }
+
+    public function testCatchFatalError()
+    {
+        try {
+            $this->notExistMethod();
+        } catch  (\Error $e) {
+            echo $e->getMessage();
+            $this->assertTrue(true);
+            return;
+        }
     }
 }
