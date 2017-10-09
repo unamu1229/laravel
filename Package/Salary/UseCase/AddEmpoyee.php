@@ -2,10 +2,8 @@
 
 
 namespace Package\Salary\UseCase;
-use Package\Salary\Salary\EmpHourly;
-use Package\Salary\Salary\EmpMonthly;
-use Package\Salary\Salary\EmpMonthlyCommission;
 use Package\Salary\Service\CheckTransaction;
+use Package\Salary\Service\Factory;
 
 class AddEmpoyee
 {
@@ -25,10 +23,8 @@ class AddEmpoyee
             return $e->getMessage();
         }
 
-        $empHourly = new EmpHourly();
-        $empMonthly = new EmpMonthly();
-        $empMonthlyCommission = new EmpMonthlyCommission();
+        $employees = Factory::makeEmp($empsData);
 
-        return[$empHourly, $empMonthly, $empMonthlyCommission];
+        return $employees;
     }
 }
