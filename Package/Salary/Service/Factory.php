@@ -11,7 +11,7 @@ use Package\Salary\Salary\EmpMonthlyCommission;
 
 class Factory
 {
-    static public function makeEmp($empsData)
+    public static function makeEmp($empsData)
     {
         $employees = [];
 
