@@ -2,31 +2,29 @@
 
 namespace Tests\Salary;
 
+use Package\Salary\Salary\EmpHourly;
+use Package\Salary\Salary\EmpMonthly;
+use Package\Salary\Salary\EmpMonthlyCommission;
 use Package\Salary\Service\CheckTransaction;
+use Package\Salary\UseCase\AddEmpoyee;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AddEmpTest extends TestCase
 {
 
-    public function testUseCase()
+    private $addEmployee;
+
+    function setUp()
     {
-        // ファイルのパスはコマンド打つディレクトリからのパス
-        $transaction = file_get_contents('tests/Salary/Transaction/AddEmpIncorrectFormat', true);
-        $rows = explode("\n", $transaction);
-        $empsData = [];
-        foreach($rows as $row){
-            $empsData[] = explode(' ', $row);
-        }
-        $checkTransaction = new CheckTransaction();
-        try {
-            $checkTransaction->checkFormat($empsData);
-        } catch (\Exception $e) {
-            echo $e->getMessage();
-            $this->assertTrue(true);
-            return;
-        }
-        print_r($empsData);
+        parent::setUp();
+        $this->addEmployee = new AddEmpoyee();
+    }
+
+
+    public function testCheckTransaction()
+    {
+        print_r($this->addEmployee->exec('tests/Salary/Transaction/AddEmpIncorrectFormat'));
         $this->assertTrue(true);
     }
 
@@ -39,5 +37,13 @@ class AddEmpTest extends TestCase
             $this->assertTrue(true);
             return;
         }
+    }
+
+    public function testAddEmp()
+    {
+        $employees = $this->addEmployee->exec('tests/Salary/Transaction/AddEmp');
+        $this->assertTrue($employees[0] instanceof EmpHourly);
+        $this->assertTrue($employees[1] instanceof EmpMonthly);
+        $this->assertTrue($employees[2] instanceof EmpMonthlyCommission);
     }
 }
