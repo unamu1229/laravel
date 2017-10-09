@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Package\Salary;
+namespace Package\Salary\Salary;
 
 
 class EmpHourly extends Employee
