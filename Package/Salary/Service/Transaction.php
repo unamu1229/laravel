@@ -4,8 +4,20 @@
 namespace Package\Salary\Service;
 
 
-class CheckTransaction
+class Transaction
 {
+    public function getTransaction($transactionPath)
+    {
+        // ファイルのパスはコマンド打つディレクトリからのパス
+        $transaction = file_get_contents($transactionPath, true);
+        $rows = explode("\n", $transaction);
+        $tmpData = [];
+        foreach($rows as $row){
+            $tmpData[] = explode(' ', $row);
+        }
+
+        return $tmpData;
+    }
     public function checkFormat($empsData)
     {
         foreach($empsData as $row => $empData){

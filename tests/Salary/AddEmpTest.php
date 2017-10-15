@@ -5,7 +5,7 @@ namespace Tests\Salary;
 use Package\Salary\Salary\EmpHourly;
 use Package\Salary\Salary\EmpMonthly;
 use Package\Salary\Salary\EmpMonthlyCommission;
-use Package\Salary\Service\CheckTransaction;
+use Package\Salary\Service\Transaction;
 use Package\Salary\UseCase\AddEmpoyee;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -24,7 +24,7 @@ class AddEmpTest extends TestCase
 
     public function testCheckTransaction()
     {
-        print_r($this->addEmployee->exec('tests/Salary/Transaction/AddEmpIncorrectFormat'));
+        print_r($this->addEmployee->exec('/var/www/html/laravel/tests/Salary/Transaction/AddEmpIncorrectFormat'));
         $this->assertTrue(true);
     }
 
@@ -41,9 +41,14 @@ class AddEmpTest extends TestCase
 
     public function testAddEmp()
     {
-        $employees = $this->addEmployee->exec('tests/Salary/Transaction/AddEmp');
+        $employees = $this->addEmployee->exec('/var/www/html/laravel/tests/Salary/Transaction/AddEmp');
         $this->assertTrue($employees[0] instanceof EmpHourly);
         $this->assertTrue($employees[1] instanceof EmpMonthly);
         $this->assertTrue($employees[2] instanceof EmpMonthlyCommission);
+    }
+
+    public function delEmp()
+    {
+
     }
 }
