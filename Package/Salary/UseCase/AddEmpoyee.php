@@ -2,23 +2,17 @@
 
 
 namespace Package\Salary\UseCase;
-use Package\Salary\Service\CheckTransaction;
+use Package\Salary\Service\Transaction;
 use Package\Salary\Service\Factory;
 
 class AddEmpoyee
 {
     public function exec($transactionPath)
     {
-        // ファイルのパスはコマンド打つディレクトリからのパス
-        $transaction = file_get_contents($transactionPath, true);
-        $rows = explode("\n", $transaction);
-        $empsData = [];
-        foreach($rows as $row){
-            $empsData[] = explode(' ', $row);
-        }
-        $checkTransaction = new CheckTransaction();
+        $transaction = new Transaction();
+        $empsData = $transaction->getTransaction($transactionPath);
         try {
-            $checkTransaction->checkFormat($empsData);
+            $transaction->checkFormat($empsData);
         } catch (\Exception $e) {
             return $e->getMessage();
         }
