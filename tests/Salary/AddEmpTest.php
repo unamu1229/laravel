@@ -47,8 +47,20 @@ class AddEmpTest extends TestCase
         $this->assertTrue($employees[2] instanceof EmpMonthlyCommission);
     }
 
-    public function delEmp()
+    public function testDelEmp()
     {
-
+        $employees = $this->addEmployee->exec('/var/www/html/laravel/tests/Salary/Transaction/AddEmp');
+        $transaction = new Transaction();
+        $delEmps = $transaction->getTransaction('/var/www/html/laravel/tests/Salary/Transaction/DelEmp');
+        foreach ($delEmps as $delEmp) {
+            foreach ($employees as $key => $employee) {
+                if ($employee->getEmpId() == $delEmp[1]) {
+                    unset($employees[$key]);
+                }
+            }
+        }
+        foreach ($employees as $employee) {
+            $this->assertNotEquals(1, $employee->getEmpId());
+        }
     }
 }
