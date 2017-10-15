@@ -12,7 +12,7 @@ class EmpUseCase
         $transaction = new Transaction();
         $empsData = $transaction->getTransaction($transactionPath);
         try {
-            $transaction->checkFormat($empsData);
+            $transaction->checkAddEmpFormat($empsData);
         } catch (\Exception $e) {
             return $e->getMessage();
         }

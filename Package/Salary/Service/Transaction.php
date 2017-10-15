@@ -18,7 +18,7 @@ class Transaction
 
         return $tmpData;
     }
-    public function checkFormat($empsData)
+    public function checkAddEmpFormat($empsData)
     {
         foreach($empsData as $row => $empData){
             if($empData[4] == 'H' || $empData[4] == 'S'){
@@ -33,6 +33,14 @@ class Transaction
             }
             if(!in_array($empData[4],['H', 'S', 'C'])){
                 throw new \Exception($row.'行の給与種別が存在しない物になっています。');
+            }
+        }
+    }
+    public function checkDelEmpFormat($delEmpsData)
+    {
+        foreach ($delEmpsData as $row => $delEmpData) {
+            if (count($delEmpData) != 2) {
+                throw new \Exception($row.'行目のカラムの数が異なります。');
             }
         }
     }

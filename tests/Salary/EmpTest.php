@@ -72,4 +72,16 @@ class EmpTest extends TestCase
         $empUseCase = new EmpUseCase();
         $empUseCase->delEmp($delEmps, $employees);
     }
+
+    /**
+     * @expectedException \Exception
+     * @expectedExceptionMessage 0行目のカラムの数が異なります
+     */
+    public function testIncorrectTransactionOnDelEmp()
+    {
+        $transaction = new Transaction();
+        $delEmps = $transaction->getTransaction('/var/www/html/laravel/tests/Salary/Transaction/DelEmpIncorrectFormat');
+        $transaction->checkDelEmpFormat($delEmps);
+    }
+
 }
