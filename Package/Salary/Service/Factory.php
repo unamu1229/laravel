@@ -4,10 +4,10 @@
 namespace Package\Salary\Service;
 
 
-use Package\Salary\Salary\EmpHourly;
-use Package\Salary\Salary\Employee;
-use Package\Salary\Salary\EmpMonthly;
-use Package\Salary\Salary\EmpMonthlyCommission;
+use Package\Salary\Model\EmpHourly;
+use Package\Salary\Model\EmployeeModel;
+use Package\Salary\Model\EmpMonthly;
+use Package\Salary\Model\EmpMonthlyCommission;
 
 class Factory
 {
@@ -19,22 +19,22 @@ class Factory
             if ($empData[4] == 'H') {
                 $emp = new EmpHourly();
                 $emp = self::setBasicEmpData($emp, $empData);
-                $emp->setHourlyRate($empData[4]);
+                $emp->setHourlyRate($empData[5]);
                 $employees[] = $emp;
                 continue;
             }
             if ($empData[4] == 'S') {
                 $emp = new EmpMonthly();
                 $emp = self::setBasicEmpData($emp, $empData);
-                $emp->setMonthlySalary($empData[4]);
+                $emp->setMonthlySalary($empData[5]);
                 $employees[] = $emp;
                 continue;
             }
             if ($empData[4] == 'C') {
                 $emp = new EmpMonthlyCommission();
                 $emp = self::setBasicEmpData($emp, $empData);
-                $emp->setMonthlySalary($empData[4]);
-                $emp->setCommissionRate($empData[5]);
+                $emp->setMonthlySalary($empData[5]);
+                $emp->setCommissionRate($empData[6]);
                 $employees[] = $emp;
                 continue;
             }

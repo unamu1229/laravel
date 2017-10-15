@@ -1,14 +1,12 @@
 <?php
 
+namespace Package\Salary\Model;
 
-namespace Package\Salary\Salary;
-
-
-class Employee
+class EmployeeModel
 {
-    private $empId;
-    private $name;
-    private $address;
+    protected $empId;
+    protected $name;
+    protected $address;
 
     /**
      * @return mixed

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Package\Salary\Salary;
+namespace Package\Salary\Model;
 
 
 class EmpMonthlyCommission extends EmpMonthly

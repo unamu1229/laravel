@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Package\Salary\Salary;
+namespace Package\Salary\Model;
 
 
-class EmpMonthly extends Employee
+class EmpMonthly extends EmployeeModel
 {
     private $monthlySalary;
 
