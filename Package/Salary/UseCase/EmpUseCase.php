@@ -7,16 +7,8 @@ use Package\Salary\Service\Factory;
 
 class EmpUseCase
 {
-    public function exec($transactionPath)
+    public function addEmp($empsData)
     {
-        $transaction = new Transaction();
-        $empsData = $transaction->getTransaction($transactionPath);
-        try {
-            $transaction->checkAddEmpFormat($empsData);
-        } catch (\Exception $e) {
-            return $e->getMessage();
-        }
-
         $employees = Factory::makeEmp($empsData);
 
         return $employees;

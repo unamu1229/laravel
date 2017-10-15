@@ -2,9 +2,9 @@
 
 namespace Tests\Salary;
 
-use Package\Salary\Salary\EmpHourly;
-use Package\Salary\Salary\EmpMonthly;
-use Package\Salary\Salary\EmpMonthlyCommission;
+use Package\Salary\Model\EmpHourly;
+use Package\Salary\Model\EmpMonthly;
+use Package\Salary\Model\EmpMonthlyCommission;
 use Package\Salary\Service\Transaction;
 use Package\Salary\UseCase\EmpUseCase;
 use Tests\TestCase;
@@ -13,35 +13,39 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class EmpTest extends TestCase
 {
 
-    private $addEmployee;
+    private $empUseCase;
 
     function setUp()
     {
         parent::setUp();
-        $this->addEmployee = new EmpUseCase();
+        $this->empUseCase = new EmpUseCase();
     }
 
 
-    public function testCheckTransaction()
+    /**
+     * @expectedException \Exception
+     */
+    public function testCheckAddEmpTransaction()
     {
-        print_r($this->addEmployee->exec('/var/www/html/laravel/tests/Salary/Transaction/AddEmpIncorrectFormat'));
-        $this->assertTrue(true);
+        $transaction = new Transaction();
+        $empsData = $transaction->getTransaction('/var/www/html/laravel/tests/Salary/Transaction/AddEmpIncorrectFormat');
+        $transaction->checkAddEmpFormat($empsData);
     }
 
+    /**
+     * @expectedException \Error
+     * @expectedExceptionMessage Call to undefined method Tests\Salary\EmpTest::notExistMethod()
+     */
     public function testCatchFatalError()
     {
-        try {
-            $this->notExistMethod();
-        } catch  (\Error $e) {
-            echo $e->getMessage();
-            $this->assertTrue(true);
-            return;
-        }
+        $this->notExistMethod();
     }
 
     public function testAddEmp()
     {
-        $employees = $this->addEmployee->exec('/var/www/html/laravel/tests/Salary/Transaction/AddEmp');
+        $transaction = new Transaction();
+        $empsData = $transaction->getTransaction('/var/www/html/laravel/tests/Salary/Transaction/AddEmp');
+        $employees = $this->empUseCase->addEmp($empsData);
         $this->assertTrue($employees[0] instanceof EmpHourly);
         $this->assertTrue($employees[1] instanceof EmpMonthly);
         $this->assertTrue($employees[2] instanceof EmpMonthlyCommission);
@@ -49,7 +53,9 @@ class EmpTest extends TestCase
 
     public function testDelEmp()
     {
-        $employees = $this->addEmployee->exec('/var/www/html/laravel/tests/Salary/Transaction/AddEmp');
+        $transaction = new Transaction();
+        $empsData = $transaction->getTransaction('/var/www/html/laravel/tests/Salary/Transaction/AddEmp');
+        $employees = $this->empUseCase->addEmp($empsData);
         $transaction = new Transaction();
         $delEmps = $transaction->getTransaction('/var/www/html/laravel/tests/Salary/Transaction/DelEmp');
         $empUseCase = new EmpUseCase();
@@ -66,7 +72,9 @@ class EmpTest extends TestCase
      */
     public function testDisabledEmpIdOnDelEmp()
     {
-        $employees = $this->addEmployee->exec('/var/www/html/laravel/tests/Salary/Transaction/AddEmp');
+        $transaction = new Transaction();
+        $empsData = $transaction->getTransaction('/var/www/html/laravel/tests/Salary/Transaction/AddEmp');
+        $employees = $this->empUseCase->addEmp($empsData);
         $transaction = new Transaction();
         $delEmps = $transaction->getTransaction('/var/www/html/laravel/tests/Salary/Transaction/DelEmpDisbledEmpId');
         $empUseCase = new EmpUseCase();
