@@ -24,4 +24,9 @@ class EmployeeRepository
         }
         $this->employee->save();
     }
+
+    public function getHourlyRateById($id)
+    {
+        return $this->employee->where('empId', $id)->value('hourlyRate');
+    }
 }
