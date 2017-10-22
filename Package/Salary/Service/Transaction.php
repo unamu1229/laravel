@@ -43,7 +43,7 @@ class Transaction
         $this->checkColumns($timeCardsData, 3);
     }
 
-    private function checkColumns($data, $expectColumns)
+    public function checkColumns($data, $expectColumns)
     {
         foreach ($data as $row => $columns) {
             if (count($columns) != $expectColumns) {

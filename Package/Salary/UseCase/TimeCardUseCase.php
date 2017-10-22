@@ -5,15 +5,10 @@ namespace Package\Salary\UseCase;
 
 use Package\Salary\Model\TimeCard;
 
-class TimeCardUseCase
+class TimeCardUseCase extends TemplateUseCase
 {
-    public function add($timeCardsData)
+    public function makeModel($timeCardData)
     {
-        $tmpTimeCards = [];
-        foreach ($timeCardsData as $timeCard) {
-            $tmpTimeCards[] = new TimeCard($timeCard[1], $timeCard[2], $timeCard[3]);
-        }
-
-        return $tmpTimeCards;
+        return new TimeCard($timeCardData[1], $timeCardData[2], $timeCardData[3]);
     }
 }
