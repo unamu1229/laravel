@@ -6,6 +6,7 @@ namespace tests\Salary;
 
 use Package\Salary\Model\TimeCard;
 use Package\Salary\Service\Transaction;
+use Package\Salary\UseCase\TimeCardUseCase;
 use Tests\TestCase;
 // use PHPUnit\Framework\TestCase;
 // Eloquent を利用しようとすると
@@ -20,10 +21,8 @@ class TimeCardTest extends TestCase
     {
         $transaction = new Transaction();
         $timeCardsData = $transaction->getTransaction('/var/www/html/laravel/tests/Salary/Transaction/TimeCard');
-        $tmpTimeCards = [];
-        foreach ($timeCardsData as $timeCard) {
-            $tmpTimeCards[] = new TimeCard($timeCard[1], $timeCard[2], $timeCard[3]);
-        }
+        $timeCardUseCase = new TimeCardUseCase();
+        $tmpTimeCards = $timeCardUseCase->add($timeCardsData);
         $this->assertEquals($tmpTimeCards[0]->getEmpId(), 1);
     }
 
@@ -35,9 +34,7 @@ class TimeCardTest extends TestCase
     {
         $transaction = new Transaction();
         $timeCardsData = $transaction->getTransaction('/var/www/html/laravel/tests/Salary/Transaction/TimeCardNotEmpHourly');
-        $tmpTimeCards = [];
-        foreach ($timeCardsData as $timeCard) {
-            $tmpTimeCards[] = new TimeCard($timeCard[1], $timeCard[2], $timeCard[3]);
-        }
+        $timeCardUseCase = new TimeCardUseCase();
+        $tmpTimeCards = $timeCardUseCase->add($timeCardsData);
     }
 }
