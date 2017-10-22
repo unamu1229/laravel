@@ -3,20 +3,19 @@
 
 namespace Package\Salary\Model;
 
-use App\Employee;
 use Package\Salary\Repository\EmployeeRepository;
 
-class TimeCard
+class SalesReceipt
 {
     private $empId;
     private $date;
-    private $hours;
+    private $amount;
 
-    public function __construct($empId, $date, $hours)
+    public function __construct($empId, $date, $amount)
     {
         $this->setEmpId($empId);
         $this->setDate($date);
-        $this->setHours($hours);
+        $this->setAmount($amount);
     }
 
     /**
@@ -32,11 +31,11 @@ class TimeCard
      */
     public function setEmpId($empId)
     {
-        $employeeRepository = app()->make(EmployeeRepository::class);
-        $hourlyRate = $employeeRepository->getArgValueById($empId, 'hourlyRate');
-        if (! $hourlyRate) {
-            throw new \Exception('この従業員は時給ではありません');
-        };
+        $empRepository = app()->make(EmployeeRepository::class);
+        $commissionRate = $empRepository->getArgValueById($empId, 'commissionRate');
+        if (! $commissionRate) {
+            throw new \Exception('この従業員はコミッション制ではありません');
+        }
         $this->empId = $empId;
     }
 
@@ -59,18 +58,17 @@ class TimeCard
     /**
      * @return mixed
      */
-    public function getHours()
+    public function getAmount()
     {
-        return $this->hours;
+        return $this->amount;
     }
 
     /**
-     * @param mixed $hours
+     * @param mixed $amount
      */
-    public function setHours($hours)
+    public function setAmount($amount)
     {
-        $this->hours = $hours;
+        $this->amount = $amount;
     }
-
 
 }

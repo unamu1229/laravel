@@ -25,8 +25,8 @@ class EmployeeRepository
         $this->employee->save();
     }
 
-    public function getHourlyRateById($id)
+    public function getArgValueById($id, $value)
     {
-        return $this->employee->where('empId', $id)->value('hourlyRate');
+        return $this->employee->where('empId', $id)->value($value);
     }
 }
