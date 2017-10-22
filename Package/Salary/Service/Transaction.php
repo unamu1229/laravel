@@ -22,24 +22,31 @@ class Transaction
     {
         foreach($empsData as $row => $empData){
             if($empData[4] == 'H' || $empData[4] == 'S'){
-                if(count($empData) != 6){
-                    throw new \Exception($row.'行のカラムの数が異なります。');
-                }
+                $this->checkColumns($empData, 6);
             }
             if($empData[4] == 'C'){
-                if(count($empData) != 7){
-                    throw new \Exception($row.'行のカラムの数が異なります。');
-                }
+                $this->checkColumns($empData, 7);
             }
             if(!in_array($empData[4],['H', 'S', 'C'])){
                 throw new \Exception($row.'行の給与種別が存在しない物になっています。');
             }
         }
     }
+
     public function checkDelEmpFormat($delEmpsData)
     {
-        foreach ($delEmpsData as $row => $delEmpData) {
-            if (count($delEmpData) != 2) {
+        $this->checkColumns($delEmpsData, 2);
+    }
+
+    public function checkTimeCardFormat($timeCardsData)
+    {
+        $this->checkColumns($timeCardsData, 3);
+    }
+
+    private function checkColumns($data, $expectColumns)
+    {
+        foreach ($data as $row => $columns) {
+            if (count($columns) != $expectColumns) {
                 throw new \Exception($row.'行目のカラムの数が異なります。');
             }
         }

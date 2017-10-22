@@ -37,4 +37,15 @@ class TimeCardTest extends TestCase
         $timeCardUseCase = new TimeCardUseCase();
         $tmpTimeCards = $timeCardUseCase->add($timeCardsData);
     }
+
+    /**
+     * @expectedException \Exception
+     * @expectedExceptionMessage 0行目のカラムの数が異なります。
+     */
+    public function testCheckTimeCardTransactionFormat()
+    {
+        $transaction = new Transaction();
+        $timeCardsData = $transaction->getTransaction('/var/www/html/laravel/tests/Salary/Transaction/TimeCardIncorrectFormat');
+        $transaction->checkTimeCardFormat($timeCardsData);
+    }
 }

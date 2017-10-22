@@ -18,7 +18,7 @@
         </testsuite>
 
         <testsuite name="Salary">
-            <directory suffix="CardTest.php">./tests/Salary</directory>
+            <directory suffix="Test.php">./tests/Salary</directory>
         </testsuite>
     </testsuites>
     <filter>
