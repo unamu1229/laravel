@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Salary;
 
 use App\Book;
 use Tests\TestCase;
