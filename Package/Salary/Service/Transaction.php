@@ -23,10 +23,16 @@ class Transaction
             $rowDataHaveKey['empId'] = $rowData[1];
             $rowDataHaveKey['changeType'] = $rowData[2];
 
+            if ($rowDataHaveKey['changeType'] == 'Hold') {
+                $tmpData[] = $rowDataHaveKey;
+                continue;
+            }
+
             $setValue = $rowData[3];
             if ($rowDataHaveKey['changeType'] == 'Commissioned') {
                 $setValue = $rowData[4];
             }
+
             $rowDataHaveKey = $this->setRowDataKeyByValue($rowDataHaveKey, $rowDataHaveKey['changeType'], $setValue);
 
             $tmpData[] = $rowDataHaveKey;

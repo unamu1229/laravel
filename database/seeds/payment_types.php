@@ -15,15 +15,15 @@ class payment_types extends Seeder
         DB::table('payment_types')->insert([
             [
                 'id' => 1,
-                'payment_type' => 'Hold'
+                'name' => 'Hold'
             ],
             [
                 'id' => 2,
-                'payment_type' => 'Direct'
+                'name' => 'Direct'
             ],
             [
                 'id' => 3,
-                'payment_type' => 'Mail'
+                'name' => 'Mail'
             ]
         ]);
     }
