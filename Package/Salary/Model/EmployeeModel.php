@@ -23,6 +23,8 @@ class EmployeeModel
 
     public function setName($name)
     {
+        $name = ltrim($name,'"');
+        $name = rtrim($name,'"');
         $this->name = $name;
     }
 
@@ -30,4 +32,13 @@ class EmployeeModel
     {
         $this->address = $address;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+    
 }

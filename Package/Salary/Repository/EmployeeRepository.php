@@ -29,4 +29,9 @@ class EmployeeRepository
     {
         return $this->employee->where('empId', $id)->value($value);
     }
+    
+    public function updateWhereEmpId($empId, $updateData)
+    {
+        $this->employee->where('empId', $empId)->update($updateData);
+    }
 }

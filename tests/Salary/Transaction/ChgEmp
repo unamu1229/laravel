@@ -1,0 +1,5 @@
+ChgEmp 1 Name saitou
+ChgEmp 1 Address tokyo
+ChgEmp 1 Hourly 1500
+ChgEmp 2 Salaried 330000
+ChgEmp 3 Commissioned 300000 340000

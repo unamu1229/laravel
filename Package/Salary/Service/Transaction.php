@@ -13,11 +13,36 @@ class Transaction
         $rows = explode("\n", $transaction);
         $tmpData = [];
         foreach($rows as $row){
-            $tmpData[] = explode(' ', $row);
+            $rowData = explode(' ', $row);
+            if ($rowData[0] != 'ChgEmp') {
+                $tmpData[] = $rowData;
+                continue;
+            }
+
+            $rowDataHaveKey = [];
+            $rowDataHaveKey['empId'] = $rowData[1];
+            $rowDataHaveKey['changeType'] = $rowData[2];
+
+            $setValue = $rowData[3];
+            if ($rowDataHaveKey['changeType'] == 'Commissioned') {
+                $setValue = $rowData[4];
+            }
+            $rowDataHaveKey = $this->setRowDataKeyByValue($rowDataHaveKey, $rowDataHaveKey['changeType'], $setValue);
+
+            $tmpData[] = $rowDataHaveKey;
+            continue;
+
         }
 
         return $tmpData;
     }
+
+    private function setRowDataKeyByValue($rowData, $key, $value)
+    {
+        $rowData[mb_strtolower($key)] = $value;
+        return $rowData;
+    }
+
     public function checkAddEmpFormat($empsData)
     {
         foreach($empsData as $row => $empData){
