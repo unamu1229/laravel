@@ -4,6 +4,7 @@
 namespace Package\Salary\UseCase;
 use Package\Salary\Service\Transaction;
 use Package\Salary\Service\Factory;
+use Package\Salary\Repository\EmployeeRepository;
 
 class EmpUseCase
 {
@@ -26,5 +27,34 @@ class EmpUseCase
             throw new \Exception('該当する従業員レコードがありません');
         }
         return $emps;
+    }
+
+    public function changeEmp($empsData)
+    {
+        $employeeRepository = app()->make(EmployeeRepository::class);
+        foreach ($empsData as $empData) {
+            $empId = $empData['empId'];
+            $changeType = $empData['changeType'];
+            $updateValue = $empData[mb_strtolower($empData['changeType'])];
+            if ($changeType == 'Name') {
+                $employeeRepository->updateWhereEmpId($empId, ['name' => $updateValue]);
+                continue;
+            }
+            if ($changeType == 'Address') {
+                $employeeRepository->updateWhereEmpId($empId, ['address' => $updateValue]);
+                continue;
+            }
+            if ($changeType == 'Hourly') {
+                $employeeRepository->updateWhereEmpId($empId, ['hourlyRate' => $updateValue]);
+                continue;
+            }
+            if ($changeType == 'Salaried') {
+                $employeeRepository->updateWhereEmpId($empId,['monthlySalary' => $updateValue]);
+                continue;
+            }
+            if ($changeType == 'Commissioned') {
+                $employeeRepository->updateWhereEmpId($empId, ['commissionRate' => $updateValue]);
+            }
+        }
     }
 }
