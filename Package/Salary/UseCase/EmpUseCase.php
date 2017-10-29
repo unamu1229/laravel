@@ -5,6 +5,7 @@ namespace Package\Salary\UseCase;
 use Package\Salary\Service\Transaction;
 use Package\Salary\Service\Factory;
 use Package\Salary\Repository\EmployeeRepository;
+use Package\Salary\Repository\PaymentTypeRepository;
 
 class EmpUseCase
 {
@@ -35,7 +36,10 @@ class EmpUseCase
         foreach ($empsData as $empData) {
             $empId = $empData['empId'];
             $changeType = $empData['changeType'];
-            $updateValue = $empData[mb_strtolower($empData['changeType'])];
+            $updateValue = null;
+            if (array_key_exists(mb_strtolower($empData['changeType']), $empData)) {
+                $updateValue = $empData[mb_strtolower($empData['changeType'])];
+            }
             if ($changeType == 'Name') {
                 $employeeRepository->updateWhereEmpId($empId, ['name' => $updateValue]);
                 continue;
@@ -54,6 +58,11 @@ class EmpUseCase
             }
             if ($changeType == 'Commissioned') {
                 $employeeRepository->updateWhereEmpId($empId, ['commissionRate' => $updateValue]);
+                continue;
+            }
+            if ($changeType == 'Hold') {
+                $paymentTypeId = (app()->make(PaymentTypeRepository::class))->getArgValueByName($changeType, 'id');
+                $employeeRepository->updateWhereEmpId($empId, ['payment_type_id' => $paymentTypeId]);
             }
         }
     }

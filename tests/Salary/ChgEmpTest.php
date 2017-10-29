@@ -7,7 +7,7 @@ use Package\Salary\Repository\EmployeeRepository;
 use Tests\TestCase;
 use Package\Salary\Service\Transaction;
 use Package\Salary\UseCase\EmpUseCase;
-
+use Package\Salary\Repository\PaymentTypeRepository;
 
 class ChgEmpTest extends TestCase
 {
@@ -30,7 +30,10 @@ class ChgEmpTest extends TestCase
 
         foreach ($empsData as $empData) {
             $empId = $empData['empId'];
-            $updateDataValue = $empData[mb_strtolower($empData['changeType'])];
+            $updateDataValue = null;
+            if (array_key_exists(mb_strtolower($empData['changeType']), $empData)) {
+                $updateDataValue = $empData[mb_strtolower($empData['changeType'])];
+            }
             $changeType = $empData['changeType'];
             if ($changeType == 'Name') {
                 $changedValue = $employeeRepository->getArgValueById($empId, 'name');
@@ -46,6 +49,10 @@ class ChgEmpTest extends TestCase
             }
             if ($changeType == 'Commissioned') {
                 $changedValue = $employeeRepository->getArgValueById($empId, 'commissionRate');
+            }
+            if ($changeType == 'Hold') {
+                $updateDataValue = (app()->make(PaymentTypeRepository::class))->getArgValueByName($changeType, 'id');
+                $changedValue = $employeeRepository->getArgValueById($empId, 'payment_type_id');
             }
             $this->assertEquals($updateDataValue, $changedValue);
         }
