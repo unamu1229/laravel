@@ -35,6 +35,10 @@ class Transaction
 
             $rowDataHaveKey = $this->setRowDataKeyByValue($rowDataHaveKey, $rowDataHaveKey['changeType'], $setValue);
 
+            if ($rowDataHaveKey['changeType'] == 'Direct') {
+                $rowDataHaveKey['account'] = $rowData[4];
+            }
+
             $tmpData[] = $rowDataHaveKey;
             continue;
 
