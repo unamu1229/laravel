@@ -70,6 +70,9 @@ class EmpUseCase
             if ($changeType == 'Mail') {
                 $employeeRepository->updateWhereEmpId($empId, ['check_send_address' => $empData['mail']]);
             }
+            if ($changeType == 'Member') {
+                $employeeRepository->updateWhereEmpId($empId, ['service_charge_id' => $empData['member'], 'service_charge_dues' => $empData['dues']]);
+            }
         }
     }
 }

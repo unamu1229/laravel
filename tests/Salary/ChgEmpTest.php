@@ -60,6 +60,9 @@ class ChgEmpTest extends TestCase
             if ($changeType == 'Mail') {
                 $changedValue = $employeeRepository->getArgValueById($empId, 'check_send_address');
             }
+            if ($changeType == 'Member') {
+                $changedValue = $employeeRepository->getArgValueById($empId, 'service_charge_id');
+            }
             $this->assertEquals($updateDataValue, $changedValue);
         }
 
