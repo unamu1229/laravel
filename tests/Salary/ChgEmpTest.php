@@ -54,6 +54,12 @@ class ChgEmpTest extends TestCase
                 $updateDataValue = (app()->make(PaymentTypeRepository::class))->getArgValueByName($changeType, 'id');
                 $changedValue = $employeeRepository->getArgValueById($empId, 'payment_type_id');
             }
+            if ($changeType == 'Direct') {
+                $changedValue = $employeeRepository->getArgValueById($empId, 'bank');
+            }
+            if ($changeType == 'Mail') {
+                $changedValue = $employeeRepository->getArgValueById($empId, 'check_send_address');
+            }
             $this->assertEquals($updateDataValue, $changedValue);
         }
 

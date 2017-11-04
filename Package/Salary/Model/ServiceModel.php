@@ -5,7 +5,7 @@ namespace Package\Salary\Model;
 
 use Package\Salary\Repository\EmployeeRepository;
 
-class ServiceCharge
+class ServiceModel
 {
     private $memberId;
     private $amount;

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterEmployee20171029143925 extends Migration
+class AlterEmployee20171104095021 extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class AlterEmployee20171029143925 extends Migration
     public function up()
     {
         Schema::table('employees', function (Blueprint $table) {
-            $table->text('bank')->nullable();
-            $table->text('account')->nullable();
+            $table->text('service_charge_id')->nullable();
         });
     }
 
@@ -27,8 +26,7 @@ class AlterEmployee20171029143925 extends Migration
     public function down()
     {
         Schema::table('employees', function (Blueprint $table) {
-            $table->dropColumn('bank');
-            $table->dropColumn('account');
+            $table->dropColumn('service_charge_id');
         });
     }
 }
