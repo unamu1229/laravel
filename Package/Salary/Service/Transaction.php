@@ -35,6 +35,10 @@ class Transaction
 
             $rowDataHaveKey = $this->setRowDataKeyByValue($rowDataHaveKey, $rowDataHaveKey['changeType'], $setValue);
 
+            if($rowDataHaveKey['changeType'] == 'Member') {
+                $rowDataHaveKey['dues'] = $rowData[5];
+            }
+
             if ($rowDataHaveKey['changeType'] == 'Direct') {
                 $rowDataHaveKey['account'] = $rowData[4];
             }
