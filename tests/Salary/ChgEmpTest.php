@@ -30,39 +30,46 @@ class ChgEmpTest extends TestCase
 
         foreach ($empsData as $empData) {
             $empId = $empData['empId'];
+
             $updateDataValue = null;
             if (array_key_exists(mb_strtolower($empData['changeType']), $empData)) {
                 $updateDataValue = $empData[mb_strtolower($empData['changeType'])];
             }
+
             $changeType = $empData['changeType'];
+
             if ($changeType == 'Name') {
                 $changedValue = $employeeRepository->getArgValueById($empId, 'name');
             }
-            if ($changeType == 'Address') {
+            elseif ($changeType == 'Address') {
                 $changedValue = $employeeRepository->getArgValueById($empId, 'address');
             }
-            if ($changeType == 'Hourly') {
+            elseif ($changeType == 'Hourly') {
                 $changedValue = $employeeRepository->getArgValueById($empId, 'hourlyRate');
             }
-            if ($changeType == 'Salaried') {
+            elseif ($changeType == 'Salaried') {
                 $changedValue = $employeeRepository->getArgValueById($empId, 'monthlySalary');
             }
-            if ($changeType == 'Commissioned') {
+            elseif ($changeType == 'Commissioned') {
                 $changedValue = $employeeRepository->getArgValueById($empId, 'commissionRate');
             }
-            if ($changeType == 'Hold') {
+            elseif ($changeType == 'Hold') {
                 $updateDataValue = (app()->make(PaymentTypeRepository::class))->getArgValueByName($changeType, 'id');
                 $changedValue = $employeeRepository->getArgValueById($empId, 'payment_type_id');
             }
-            if ($changeType == 'Direct') {
+            elseif ($changeType == 'Direct') {
                 $changedValue = $employeeRepository->getArgValueById($empId, 'bank');
             }
-            if ($changeType == 'Mail') {
+            elseif ($changeType == 'Mail') {
                 $changedValue = $employeeRepository->getArgValueById($empId, 'check_send_address');
             }
-            if ($changeType == 'Member') {
+            elseif ($changeType == 'Member') {
                 $changedValue = $employeeRepository->getArgValueById($empId, 'service_charge_id');
             }
+            elseif ($changeType == 'NoMember') {
+                $changedValue = $employeeRepository->getArgValueById($empId, 'service_charge_id');
+            }
+
             $this->assertEquals($updateDataValue, $changedValue);
         }
 

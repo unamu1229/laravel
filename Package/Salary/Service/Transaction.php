@@ -23,7 +23,7 @@ class Transaction
             $rowDataHaveKey['empId'] = $rowData[1];
             $rowDataHaveKey['changeType'] = $rowData[2];
 
-            if ($rowDataHaveKey['changeType'] == 'Hold') {
+            if ($rowDataHaveKey['changeType'] == 'Hold' || $rowDataHaveKey['changeType'] == 'NoMember') {
                 $tmpData[] = $rowDataHaveKey;
                 continue;
             }

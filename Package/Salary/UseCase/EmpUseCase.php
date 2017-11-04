@@ -73,6 +73,9 @@ class EmpUseCase
             if ($changeType == 'Member') {
                 $employeeRepository->updateWhereEmpId($empId, ['service_charge_id' => $empData['member'], 'service_charge_dues' => $empData['dues']]);
             }
+            if ($changeType == 'NoMember') {
+                $employeeRepository->updateWhereEmpId($empId, ['service_charge_id' => null]);
+            }
         }
     }
 }
