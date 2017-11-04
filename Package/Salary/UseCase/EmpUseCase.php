@@ -64,6 +64,9 @@ class EmpUseCase
                 $paymentTypeId = (app()->make(PaymentTypeRepository::class))->getArgValueByName($changeType, 'id');
                 $employeeRepository->updateWhereEmpId($empId, ['payment_type_id' => $paymentTypeId]);
             }
+            if ($changeType == 'Direct') {
+                $employeeRepository->updateWhereEmpId($empId, ['bank' => $empData['direct'], 'account' => $empData['account']]);
+            }
         }
     }
 }
