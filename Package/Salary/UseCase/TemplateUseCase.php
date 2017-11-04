@@ -8,12 +8,12 @@ abstract class TemplateUseCase
 {
     public function add($transactionsData)
     {
-        $tmpTimeCards = [];
+        $tmpData = [];
         foreach ($transactionsData as $transactionData) {
-            $tmpTimeCards[] = $this->makeModel($transactionData);
+            $tmpData[] = $this->makeModel($transactionData);
         }
 
-        return $tmpTimeCards;
+        return $tmpData;
     }
 
     abstract function makeModel($transactionData);

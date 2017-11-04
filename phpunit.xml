@@ -13,13 +13,13 @@
             <!--<directory suffix="Test.php">./tests/Feature</directory>-->
         <!--</testsuite>-->
 
-        <testsuite name="Unit">
-            <directory suffix="Test.php">./tests/Unit</directory>
-        </testsuite>
+        <!--<testsuite name="Unit">-->
+            <!--<directory suffix="Test.php">./tests/Unit</directory>-->
+        <!--</testsuite>-->
 
         <testsuite name="Salary">
-            <directory suffix="Test.php">./tests/Paiza</directory>
-            <!--<directory suffix="ChgEmpTest.php">./tests/Salary</directory>-->
+            <!--<directory suffix="Test.php">./tests/Paiza</directory>-->
+            <directory suffix="Test.php">./tests/Salary</directory>
             <!--<directory suffix="Test.php">./tests/Salary</directory>-->
         </testsuite>
     </testsuites>

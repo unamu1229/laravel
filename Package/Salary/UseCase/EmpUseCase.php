@@ -67,6 +67,9 @@ class EmpUseCase
             if ($changeType == 'Direct') {
                 $employeeRepository->updateWhereEmpId($empId, ['bank' => $empData['direct'], 'account' => $empData['account']]);
             }
+            if ($changeType == 'Mail') {
+                $employeeRepository->updateWhereEmpId($empId, ['check_send_address' => $empData['mail']]);
+            }
         }
     }
 }
