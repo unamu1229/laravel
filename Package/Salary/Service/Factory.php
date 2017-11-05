@@ -20,6 +20,7 @@ class Factory
                 $emp = new EmpHourly();
                 $emp = self::setBasicEmpData($emp, $empData);
                 $emp->setHourlyRate($empData[5]);
+                $emp->setPayDay('every_friday');
                 $employees[] = $emp;
                 continue;
             }
@@ -27,6 +28,7 @@ class Factory
                 $emp = new EmpMonthly();
                 $emp = self::setBasicEmpData($emp, $empData);
                 $emp->setMonthlySalary($empData[5]);
+                $emp->setPayDay('end_month');
                 $employees[] = $emp;
                 continue;
             }
@@ -35,6 +37,7 @@ class Factory
                 $emp = self::setBasicEmpData($emp, $empData);
                 $emp->setMonthlySalary($empData[5]);
                 $emp->setCommissionRate($empData[6]);
+                $emp->setPayDay('biweekly_friday');
                 $employees[] = $emp;
                 continue;
             }

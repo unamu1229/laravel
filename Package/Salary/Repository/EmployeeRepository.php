@@ -5,33 +5,32 @@ namespace Package\Salary\Repository;
 use App\Employee;
 use Package\Salary\Model\EmployeeModel;
 
-class EmployeeRepository
+class EmployeeRepository extends Repository
 {
-    private $employee;
+    private $eloquent;
     
     public function __construct(Employee $employee)
     {
-        $this->employee = $employee;
+        $this->eloquent = $employee;
     }
 
     public function save(EmployeeModel $employee)
     {
-        $reflect = new \ReflectionClass($employee);
-        foreach ($reflect->getProperties(\ReflectionProperty::IS_PRIVATE | \ReflectionProperty::IS_PROTECTED) as $reflectionProperty) {
-            $reflectionProperty->setAccessible(true);
-            $propertyName = $reflectionProperty->getName();
-            $this->employee->$propertyName = $reflectionProperty->getValue($employee);
-        }
-        $this->employee->save();
+        $this->setModelPropertyToEloquent($employee, $this->eloquent);
     }
 
     public function getArgValueById($id, $value)
     {
-        return $this->employee->where('empId', $id)->value($value);
+        return $this->eloquent->where('empId', $id)->value($value);
     }
     
     public function updateWhereEmpId($empId, $updateData)
     {
-        $this->employee->where('empId', $empId)->update($updateData);
+        $this->eloquent->where('empId', $empId)->update($updateData);
+    }
+
+    public function getAllByPayday($payDay)
+    {
+        return $this->eloquent->where('payDay', $payDay)->get();
     }
 }
