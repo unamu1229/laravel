@@ -6,7 +6,7 @@ namespace Package\Salary\Model;
 use App\Employee;
 use Package\Salary\Repository\EmployeeRepository;
 
-class TimeCard
+class TimeCardModel
 {
     private $empId;
     private $date;

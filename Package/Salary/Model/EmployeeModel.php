@@ -7,6 +7,7 @@ class EmployeeModel
     protected $empId;
     protected $name;
     protected $address;
+    protected $payDay;
 
     /**
      * @return mixed
@@ -40,5 +41,23 @@ class EmployeeModel
     {
         return $this->name;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPayDay()
+    {
+        return $this->payDay;
+    }
+
+    /**
+     * @param mixed $payDay
+     */
+    public function setPayDay($payDay)
+    {
+        $this->payDay = $payDay;
+    }
+
+
     
 }

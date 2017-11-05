@@ -4,7 +4,8 @@
 namespace tests\Salary;
 
 
-use Package\Salary\Model\TimeCard;
+use App\TimeCard;
+use Package\Salary\Model\TimeCardModel;
 use Package\Salary\Service\Transaction;
 use Package\Salary\UseCase\TimeCardUseCase;
 use Tests\TestCase;
@@ -13,17 +14,15 @@ use Tests\TestCase;
 // Class config does not exist
 // /var/www/html/laravel/vendor/laravel/framework/src/Illuminate/Container/Container.php:752
 // となる。
+use Package\Salary\Repository\TimeCardRepository;
 
 class TimeCardTest extends TestCase
 {
 
-    public function testConstruct()
+    public function setUp()
     {
-        $transaction = new Transaction();
-        $timeCardsData = $transaction->getTransaction('/var/www/html/laravel/tests/Salary/Transaction/TimeCard');
-        $timeCardUseCase = new TimeCardUseCase();
-        $tmpTimeCards = $timeCardUseCase->add($timeCardsData);
-        $this->assertEquals($tmpTimeCards[0]->getEmpId(), 1);
+        parent::setUp();
+        TimeCard::query()->truncate();
     }
 
     /**
@@ -47,5 +46,18 @@ class TimeCardTest extends TestCase
         $transaction = new Transaction();
         $timeCardsData = $transaction->getTransaction('/var/www/html/laravel/tests/Salary/Transaction/TimeCardIncorrectFormat');
         $transaction->checkTimeCardFormat($timeCardsData);
+    }
+
+    public function testConstruct()
+    {
+        $transaction = new Transaction();
+        $timeCardsData = $transaction->getTransaction('/var/www/html/laravel/tests/Salary/Transaction/TimeCard');
+        $timeCardUseCase = new TimeCardUseCase();
+        $tmpTimeCards = $timeCardUseCase->add($timeCardsData);
+        $timeCardRepository = $this->app->make(TimeCardRepository::class);
+        foreach ($tmpTimeCards as $tmpTimeCard) {
+            $timeCardRepository->save($tmpTimeCard);
+        }
+        $this->assertEquals($tmpTimeCards[0]->getEmpId(), 1);
     }
 }

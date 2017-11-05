@@ -3,12 +3,12 @@
 
 namespace Package\Salary\UseCase;
 
-use Package\Salary\Model\TimeCard;
+use Package\Salary\Model\TimeCardModel;
 
 class TimeCardUseCase extends TemplateUseCase
 {
     public function makeModel($timeCardData)
     {
-        return new TimeCard($timeCardData[1], $timeCardData[2], $timeCardData[3]);
+        return new TimeCardModel($timeCardData[1], $timeCardData[2], $timeCardData[3]);
     }
 }
