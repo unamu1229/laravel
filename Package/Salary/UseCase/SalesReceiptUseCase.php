@@ -3,12 +3,12 @@
 
 namespace Package\Salary\UseCase;
 
-use Package\Salary\Model\SalesReceipt;
+use Package\Salary\Model\SalesReceiptModel;
 
 class SalesReceiptUseCase extends TemplateUseCase
 {
     public function makeModel($salesReceiptData)
     {
-        return new SalesReceipt($salesReceiptData[1], $salesReceiptData[2], $salesReceiptData[3]);
+        return new SalesReceiptModel($salesReceiptData[1], $salesReceiptData[2], $salesReceiptData[3]);
     }
 }
