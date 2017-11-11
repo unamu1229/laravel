@@ -7,7 +7,7 @@ namespace Package\Salary\Repository;
 use App\ServiceCharge;
 use Package\Salary\Model\ServiceModel;
 
-class ServiceChargeRepository
+class ServiceChargeRepository extends Repository
 {
     private $serviceCharge;
 
@@ -18,9 +18,7 @@ class ServiceChargeRepository
 
     public function save(ServiceModel $serviceModel)
     {
-        $this->serviceCharge->id = $serviceModel->getMemberId();
-        $this->serviceCharge->amount = $serviceModel->getAmount();
-        $this->serviceCharge->save();
+        $this->setModelPropertyToEloquent($serviceModel, $this->serviceCharge);
     }
 
     public function delete(ServiceModel $serviceModel)
