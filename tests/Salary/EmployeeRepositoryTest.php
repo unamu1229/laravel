@@ -2,6 +2,7 @@
 
 namespace Tests\Salary;
 
+use App\Employee;
 use Package\Salary\UseCase\EmpUseCase;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -13,6 +14,7 @@ class EmployeeRepositoryTest extends TestCase
 
     public function testSave()
     {
+        Employee::query()->truncate();
         $transaction = new Transaction();
         $empsData = $transaction->getTransaction('/var/www/html/laravel/tests/Salary/Transaction/AddEmp');
         $empUseCase = new EmpUseCase();
