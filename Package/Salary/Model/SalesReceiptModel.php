@@ -5,7 +5,7 @@ namespace Package\Salary\Model;
 
 use Package\Salary\Repository\EmployeeRepository;
 
-class SalesReceipt
+class SalesReceiptModel
 {
     private $empId;
     private $date;

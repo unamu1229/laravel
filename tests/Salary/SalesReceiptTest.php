@@ -2,20 +2,16 @@
 
 namespace Tests\Salary;
 
-use Package\Salary\Model\SalesReceipt;
+use App\SalesReceipt;
+use Package\Salary\Model\SalesReceiptModel;
 use Package\Salary\Service\Transaction;
 use Package\Salary\UseCase\SalesReceiptUseCase;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Package\Salary\Repository\SalesReceiptRepository;
 
 class SalesReceiptTest extends TestCase
 {
-    public function testMake()
-    {
-        $salesReceiptsData = (new Transaction())->getTransaction('/var/www/html/laravel/tests/Salary/Transaction/SalesReceipt');
-        $tmpSalesReceiptData = (new SalesReceiptUseCase())->add($salesReceiptsData);
-        $this->assertEquals($tmpSalesReceiptData[0]->getAmount(), 100000);
-    }
 
     /**
      * @expectedException \Exception
@@ -36,5 +32,17 @@ class SalesReceiptTest extends TestCase
         $transaction = new Transaction();
         $salesReceiptsData = $transaction->getTransaction('/var/www/html/laravel/tests/Salary/Transaction/SalesReceiptIncorrectFormat');
         $transaction->checkColumns($salesReceiptsData, 4);
+    }
+
+    public function testMake()
+    {
+        SalesReceipt::query()->truncate();
+        $salesReceiptsData = (new Transaction())->getTransaction('/var/www/html/laravel/tests/Salary/Transaction/SalesReceipt');
+        $tmpSalesReceiptData = (new SalesReceiptUseCase())->add($salesReceiptsData);
+        $this->assertEquals($tmpSalesReceiptData[0]->getAmount(), 100000);
+        $salesReceiptRepository = $this->app->make(SalesReceiptRepository::class);
+        foreach ($tmpSalesReceiptData as $salesReceipt) {
+            $salesReceiptRepository->save($salesReceipt);
+        }
     }
 }
