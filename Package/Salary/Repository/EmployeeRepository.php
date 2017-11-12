@@ -7,7 +7,7 @@ use Package\Salary\Model\EmployeeModel;
 
 class EmployeeRepository extends Repository
 {
-    private $eloquent;
+    protected $eloquent;
     
     public function __construct(Employee $employee)
     {

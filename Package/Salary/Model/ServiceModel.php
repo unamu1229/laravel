@@ -29,8 +29,8 @@ class ServiceModel
     public function setMemberId($memberId)
     {
         $employeeRepository = app()->make(EmployeeRepository::class);
-        $empId = $employeeRepository->getArgValueById($memberId, 'empId');
-        if (! $empId) {
+        $serviceChargeId = $employeeRepository->getAllWhereColumnValue('service_charge_id', $memberId);
+        if (! count($serviceChargeId)) {
             throw new \Exception('存在しない組合員です。');
         }
         $this->memberId = $memberId;

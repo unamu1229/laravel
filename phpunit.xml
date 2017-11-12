@@ -27,8 +27,8 @@
             <file>tests/Salary/EmployeeRepositoryTest.php</file>
             <file>tests/Salary/TimeCardTest.php</file>
             <file>tests/Salary/SalesReceiptTest.php</file>
-            <file>tests/Salary/ServiceChargeTest.php</file>
             <file>tests/Salary/ChgEmpTest.php</file>
+            <file>tests/Salary/ServiceChargeTest.php</file>
             <file>tests/Salary/PaydayTest.php</file>
         </testsuite>
     </testsuites>
