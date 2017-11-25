@@ -39,7 +39,7 @@ class SalesReceiptTest extends TestCase
         SalesReceipt::query()->truncate();
         $salesReceiptsData = (new Transaction())->getTransaction('/var/www/html/laravel/tests/Salary/Transaction/SalesReceipt');
         $tmpSalesReceiptData = (new SalesReceiptUseCase())->add($salesReceiptsData);
-        $this->assertEquals($tmpSalesReceiptData[0]->getAmount(), 100000);
+        $this->assertEquals($tmpSalesReceiptData[0]->getAmount(), 1000000);
         $salesReceiptRepository = $this->app->make(SalesReceiptRepository::class);
         foreach ($tmpSalesReceiptData as $salesReceipt) {
             $salesReceiptRepository->save($salesReceipt);
