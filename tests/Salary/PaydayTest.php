@@ -40,6 +40,11 @@ class PaydayTest extends  TestCase
                     $this->assertEquals('Hold', $payDayEmp->paymentType()->first()->name);
                     continue;
                 }
+                if ($payDayEmp->payDay == 'end_month') {
+                    $salary = $paydayUseCase->calcMonthlySalary($payDayEmp->monthlySalary, $serviceChargeDue);
+                    $this->assertEquals(330000, $salary);
+                    $this->assertEquals('Hold', $payDayEmp->paymentType()->first()->name);
+                }
             }
         }
     }

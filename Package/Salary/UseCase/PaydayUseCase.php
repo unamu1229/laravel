@@ -46,4 +46,10 @@ class PaydayUseCase
 
         return $compesationSalery;
     }
+
+    public function calcMonthlySalary($monthlySalary, $serviceChargeDue)
+    {
+        $paySalary = $monthlySalary - $serviceChargeDue;
+        return $paySalary;
+    }
 }
