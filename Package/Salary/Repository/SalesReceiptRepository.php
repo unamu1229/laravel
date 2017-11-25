@@ -9,7 +9,7 @@ use Package\Salary\Model\SalesReceiptModel;
 
 class SalesReceiptRepository extends Repository
 {
-    private $eloquent;
+    protected $eloquent;
 
     public function __construct(SalesReceipt $salesReceipt)
     {
