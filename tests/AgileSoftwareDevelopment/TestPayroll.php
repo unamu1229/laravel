@@ -5,6 +5,7 @@ namespace tests\AgileSoftwareDevelopment;
 
 use Package\AgileSoftwareDevelopment\Model\BiweeklySchedule;
 use Package\AgileSoftwareDevelopment\Model\WeeklySchedule;
+use Package\AgileSoftwareDevelopment\Usecase\SalesReceiptTransaction;
 use Tests\TestCase;
 use Package\AgileSoftwareDevelopment\Usecase\AddSalariedEmployee;
 use Package\AgileSoftwareDevelopment\Repository\PayrollDatabase;
@@ -58,5 +59,20 @@ class TestPayroll extends TestCase
         $this->assertEquals(50000, $pc->getCommissionRate());
         $ps = $e->getSchedule();
         $this->assertTrue($ps instanceof BiweeklySchedule);
+    }
+
+    public function testSalesReceiptTransaction()
+    {
+        $empId = 3;
+        $t = new AddCommissionedEmployee($empId, 'Takeshi', 'Bank', 1000.00, 50000);
+        $t->execute();
+        $sr = new SalesReceiptTransaction($empId,'20171129', '20000000');
+        $sr->execute();
+        $e = PayrollDatabase::getEmployee($empId);
+        $pc = $e->getClassification();
+        $receipts = $pc->getReceipt();
+        foreach ($receipts as $receipt) {
+            $this->assertEquals($receipt->getAmount(),'20000000');
+        }
     }
 }

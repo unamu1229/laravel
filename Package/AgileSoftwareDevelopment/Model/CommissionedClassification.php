@@ -4,10 +4,11 @@
 namespace Package\AgileSoftwareDevelopment\Model;
 
 
-class CommissionedClassification
+class CommissionedClassification implements PaymentClassification
 {
     private $salary;
     private $commissionRate;
+    private $receipt;
 
     public function __construct($salary, $commissionRate)
     {
@@ -30,5 +31,19 @@ class CommissionedClassification
     {
         return $this->commissionRate;
     }
+
+    public function addSalesReceipt($receipt)
+    {
+        $this->receipt[] = $receipt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReceipt()
+    {
+        return $this->receipt;
+    }
+
 
 }

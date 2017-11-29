@@ -4,7 +4,7 @@
 namespace Package\AgileSoftwareDevelopment\Model;
 
 
-class HourlyClassification
+class HourlyClassification implements PaymentClassification
 {
     private $hourlyRate;
 

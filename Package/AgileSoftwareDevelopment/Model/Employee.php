@@ -29,7 +29,7 @@ class Employee
     /**
      * @param mixed $classification
      */
-    public function setClassification($classification)
+    public function setClassification(PaymentClassification $classification)
     {
         $this->classification = $classification;
     }
