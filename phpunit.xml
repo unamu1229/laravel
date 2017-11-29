@@ -21,15 +21,19 @@
             <!--<directory suffix="Test.php">./tests/Paiza</directory>-->
         </testsuite>
 
+        <testsuite name="AgileSoftwareDevelopment">
+            <directory suffix=".php">./tests/AgileSoftwareDevelopment</directory>
+        </testsuite>
+
         <testsuite name="Salary">
             <!--<directory suffix="Test.php">./tests/Salary</directory>-->
-            <file>tests/Salary/EmpTest.php</file>
+            <!--<file>tests/Salary/EmpTest.php</file>
             <file>tests/Salary/EmployeeRepositoryTest.php</file>
             <file>tests/Salary/TimeCardTest.php</file>
             <file>tests/Salary/SalesReceiptTest.php</file>
             <file>tests/Salary/ChgEmpTest.php</file>
             <file>tests/Salary/ServiceChargeTest.php</file>
-            <file>tests/Salary/PaydayTest.php</file>
+            <file>tests/Salary/PaydayTest.php</file>-->
         </testsuite>
     </testsuites>
     <filter>
