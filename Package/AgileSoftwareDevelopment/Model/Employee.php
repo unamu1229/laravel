@@ -69,5 +69,40 @@ class Employee
         $this->method = $method;
     }
 
+    /**
+     * @return int
+     */
+    public function getEmpId()
+    {
+        return $this->empId;
+    }
+
+    /**
+     * @param int $empId
+     */
+    public function setEmpId($empId)
+    {
+        $this->empId = $empId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param string $address
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+    }
+
+
+
+
 
 }

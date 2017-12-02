@@ -4,13 +4,16 @@
 namespace tests\AgileSoftwareDevelopment;
 
 use Package\AgileSoftwareDevelopment\Model\BiweeklySchedule;
+use Package\AgileSoftwareDevelopment\Model\MonthlySchedule;
 use Package\AgileSoftwareDevelopment\Model\WeeklySchedule;
+use Package\AgileSoftwareDevelopment\Usecase\ChangeSalariedTransaction;
 use Package\AgileSoftwareDevelopment\Usecase\SalesReceiptTransaction;
 use Tests\TestCase;
 use Package\AgileSoftwareDevelopment\Usecase\AddSalariedEmployee;
 use Package\AgileSoftwareDevelopment\Repository\PayrollDatabase;
 use Package\AgileSoftwareDevelopment\Usecase\AddHourlyEmployee;
 use Package\AgileSoftwareDevelopment\Usecase\AddCommissionedEmployee;
+use Package\AgileSoftwareDevelopment\Usecase\ChangeAddressTransaction;
 
 class TestPayroll extends TestCase
 {
@@ -74,6 +77,29 @@ class TestPayroll extends TestCase
         foreach ($receipts as $receipt) {
             $this->assertEquals($receipt->getAmount(),'20000000');
         }
+    }
+
+    public function testChangeAddressTransaction()
+    {
+        $empId = 2;
+        $t = new AddHourlyEmployee($empId, 'Yoneda', 'ShinOsaka', 15.25);
+        $t->execute();
+        $cnt = new ChangeAddressTransaction($empId, 'Tokyo');
+        $cnt->execute();
+        $e = PayrollDatabase::getEmployee($empId);
+        $this->assertEquals('Tokyo', $e->getAddress());
+    }
+
+    public function testChangeSalariedTransaction()
+    {
+        $empId = 2;
+        $t = new AddSalariedEmployee($empId, 'Kusaka', 'Toyonaka', 300000);
+        $t->execute();
+        $cst = new ChangeSalariedTransaction($empId, 450000);
+        $cst->execute();
+        $e = PayrollDatabase::getEmployee($empId);
+        $this->assertEquals($e->getClassification()->getSalary(), 450000);
+        $this->assertTrue($e->getSchedule() instanceof MonthlySchedule);
     }
 
     public function testReference()
