@@ -75,4 +75,97 @@ class TestPayroll extends TestCase
             $this->assertEquals($receipt->getAmount(),'20000000');
         }
     }
+
+    public function testReference()
+    {
+        $test = new Test();
+        $nameObj = new Name();
+        $test->setName($nameObj);
+        $name = $test->getName();
+        $name->setName('sssss');
+        $name->name = 'ffff';
+        $this->assertEquals($test->getName()->name, 'ffff');
+        $nameName = $name->getName();
+        $nameName = 'zzzz';
+        $this->assertEquals($test->getName()->name, 'ffff');
+    }
+
+    public function testLiteralNotReference()
+    {
+        $test = new Test();
+        $test->setName('dddd');
+        $name = $test->getName();
+        $name = 'zzzzz';
+        $this->assertEquals($test->getName(), 'dddd');
+    }
+
+    public function testLiteralUseReference()
+    {
+        $testReference = new TestReference();
+        $testReference->setName('dddd');
+        $name =& $testReference->getName();
+        $name = 'zzzzz';
+        $this->assertEquals($testReference->getName(), 'zzzzz');
+    }
+
+    public function testThis()
+    {
+        $test = new Test();
+        $test->setName('dddd');
+        $testThis = $test->getThis();
+        $testThis->setName('zzzz');
+        $this->assertEquals($test->getName(), 'zzzz');
+    }
+}
+
+
+class TestReference
+{
+    public $name;
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+    public function &getName()
+    {
+        return $this->name;
+    }
+    public function getThis()
+    {
+        return $this;
+    }
+}
+
+class Test
+{
+    public $name;
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+    public function getName()
+    {
+        return $this->name;
+    }
+    public function getThis()
+    {
+        return $this;
+    }
+}
+
+class Name
+{
+    public $name;
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 }
