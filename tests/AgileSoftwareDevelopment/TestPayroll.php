@@ -4,9 +4,13 @@
 namespace tests\AgileSoftwareDevelopment;
 
 use Package\AgileSoftwareDevelopment\Model\BiweeklySchedule;
+use Package\AgileSoftwareDevelopment\Model\HoldMethod;
 use Package\AgileSoftwareDevelopment\Model\MonthlySchedule;
 use Package\AgileSoftwareDevelopment\Model\WeeklySchedule;
 use Package\AgileSoftwareDevelopment\Usecase\ChangeCommissionedTransaction;
+use Package\AgileSoftwareDevelopment\Usecase\ChangeDirectTransaction;
+use Package\AgileSoftwareDevelopment\Usecase\ChangeHoldTransaction;
+use Package\AgileSoftwareDevelopment\Usecase\ChangeMailTransaction;
 use Package\AgileSoftwareDevelopment\Usecase\ChangeSalariedTransaction;
 use Package\AgileSoftwareDevelopment\Usecase\SalesReceiptTransaction;
 use Tests\TestCase;
@@ -113,6 +117,45 @@ class TestPayroll extends TestCase
         $e = PayrollDatabase::getEmployee($empId);
         $this->assertEquals($e->getClassification()->getCommissionRate(), 160000);
         $this->assertTrue($e->getSchedule() instanceof BiweeklySchedule);
+    }
+
+    public function testChangeMethodTransaction()
+    {
+        $empId = 2;
+        $t = new AddSalariedEmployee($empId, 'Kusaka', 'Toyonaka', 300000);
+        $t->execute();
+
+        $cdt = new ChangeDirectTransaction($empId, 'smbc', '231188976');
+        $cdt->execute();
+
+        $e = PayrollDatabase::getEmployee($empId);
+        $this->assertEquals($e->getMethod()->getAccount(), '231188976');
+    }
+
+    public function testChangeMailTransaction()
+    {
+        $empId = 3;
+        $t = new AddCommissionedEmployee($empId, 'Abe', 'Sakai', 300000, 150000);
+        $t->execute();
+
+        $cmt = new ChangeMailTransaction($empId, 'Mikuni');
+        $cmt->execute();
+
+        $e = PayrollDatabase::getEmployee($empId);
+        $this->assertEquals($e->getMethod()->getAddress(), 'Mikuni');
+    }
+
+    public function testChangeHoldTransaction()
+    {
+        $empId = 1;
+        $t = new AddSalariedEmployee($empId, 'Bob', 'Home', 1000.00);
+        $t->execute();
+
+        $cht = new ChangeHoldTransaction($empId);
+        $cht->execute();
+
+        $e = PayrollDatabase::getEmployee($empId);
+        $this->assertTrue($e->getMethod() instanceof HoldMethod);
     }
 
     public function testReference()
