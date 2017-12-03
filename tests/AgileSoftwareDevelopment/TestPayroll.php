@@ -6,6 +6,7 @@ namespace tests\AgileSoftwareDevelopment;
 use Package\AgileSoftwareDevelopment\Model\BiweeklySchedule;
 use Package\AgileSoftwareDevelopment\Model\MonthlySchedule;
 use Package\AgileSoftwareDevelopment\Model\WeeklySchedule;
+use Package\AgileSoftwareDevelopment\Usecase\ChangeCommissionedTransaction;
 use Package\AgileSoftwareDevelopment\Usecase\ChangeSalariedTransaction;
 use Package\AgileSoftwareDevelopment\Usecase\SalesReceiptTransaction;
 use Tests\TestCase;
@@ -100,6 +101,18 @@ class TestPayroll extends TestCase
         $e = PayrollDatabase::getEmployee($empId);
         $this->assertEquals($e->getClassification()->getSalary(), 450000);
         $this->assertTrue($e->getSchedule() instanceof MonthlySchedule);
+    }
+
+    public function testChangeCommissionedTransaction()
+    {
+        $empId = 3;
+        $t = new AddCommissionedEmployee($empId, 'Abe', 'Sakai', 300000, 150000);
+        $t->execute();
+        $cct = new ChangeCommissionedTransaction($empId, 330000, 160000);
+        $cct->execute();
+        $e = PayrollDatabase::getEmployee($empId);
+        $this->assertEquals($e->getClassification()->getCommissionRate(), 160000);
+        $this->assertTrue($e->getSchedule() instanceof BiweeklySchedule);
     }
 
     public function testReference()
