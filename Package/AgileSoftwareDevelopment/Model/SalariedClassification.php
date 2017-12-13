@@ -21,4 +21,9 @@ class SalariedClassification implements PaymentClassification
         return $this->salary;
     }
 
+    public function calculatePay($pc)
+    {
+        return $this->salary;
+    }
+
 }

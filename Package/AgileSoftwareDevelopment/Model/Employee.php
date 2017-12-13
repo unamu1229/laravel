@@ -9,16 +9,27 @@ class Employee
 
     private $schedule;
     private $classification;
-    private $method;
     private $empId;
     private $name;
     private $address;
+    private $affiliation;
+    private $paymentMethod;
+
+    /**
+     * @param mixed $paymentMethod
+     */
+    public function setPaymentMethod($paymentMethod)
+    {
+        $this->paymentMethod = $paymentMethod;
+    }
+
 
     public function __construct(int $itsEmpId, string $itsName, string $itsAddress)
     {
         $this->empId = $itsEmpId;
         $this->name = $itsName;
         $this->address = $itsAddress;
+        $this->affiliation = new NoAffiliation();
     }
 
     public function getClassification()
@@ -58,7 +69,7 @@ class Employee
 
     public function getMethod()
     {
-        return $this->method;
+        return $this->paymentMethod;
     }
 
     /**
@@ -66,7 +77,7 @@ class Employee
      */
     public function setMethod($method)
     {
-        $this->method = $method;
+        $this->paymentMethod = $method;
     }
 
     /**
@@ -101,8 +112,25 @@ class Employee
         $this->address = $address;
     }
 
+    public function isPayDate($itsPayDate)
+    {
+        return $this->schedule->isPayDate($itsPayDate);
+    }
 
+    public function getPayPeriodStartDate($payDate)
+    {
+        return $this->schedule->getPayPeriodStartDate($payDate);
+    }
 
-
+    public function payday($pc)
+    {
+        $grossPay = $this->classification->calculatePay($pc);
+        $deductions = $this->affiliation->calculateDeductions($pc);
+        $netPay = $grossPay - $deductions;
+        $pc->setGrossPay($grossPay);
+        $pc->setDeductions($deductions);
+        $pc->setNetPay($netPay);
+        $this->paymentMethod->pay($pc);
+    }
 
 }

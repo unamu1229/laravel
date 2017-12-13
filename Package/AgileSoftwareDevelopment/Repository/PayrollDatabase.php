@@ -24,4 +24,15 @@ class PayrollDatabase
     {
         self::$itsEmployees = [];
     }
+
+    public static function getAllEmployeeIds()
+    {
+        $employees = self::$itsEmployees;
+        $empIds = [];
+        foreach ($employees as $employee) {
+            $empIds[] = $employee->getEmpId();
+        }
+
+        return $empIds;
+    }
 }

@@ -12,6 +12,7 @@ use Package\AgileSoftwareDevelopment\Usecase\ChangeDirectTransaction;
 use Package\AgileSoftwareDevelopment\Usecase\ChangeHoldTransaction;
 use Package\AgileSoftwareDevelopment\Usecase\ChangeMailTransaction;
 use Package\AgileSoftwareDevelopment\Usecase\ChangeSalariedTransaction;
+use Package\AgileSoftwareDevelopment\Usecase\PaydayTransaction;
 use Package\AgileSoftwareDevelopment\Usecase\SalesReceiptTransaction;
 use Tests\TestCase;
 use Package\AgileSoftwareDevelopment\Usecase\AddSalariedEmployee;
@@ -197,6 +198,29 @@ class TestPayroll extends TestCase
         $testThis = $test->getThis();
         $testThis->setName('zzzz');
         $this->assertEquals($test->getName(), 'zzzz');
+    }
+
+    public function testPaySingleSalariedEmployee()
+    {
+        PayrollDatabase::clear();
+        $empId = 1;
+        $t = new AddSalariedEmployee($empId, 'Bob', 'Home', 1000.0);
+        $t->execute();
+        $payDate = '2017-12-31';
+        $pt = new PaydayTransaction($payDate);
+        $pt->execute();
+        $this->validatePaycheck($pt, $empId, $payDate, 1000.0);
+    }
+
+    private function validatePaycheck(PaydayTransaction $pt, int $empId, $payDate, $pay)
+    {
+        $pc = $pt->getPaycheck($empId);
+        $this->assertNotNull($pc);
+        $this->assertEquals($pc->getPayPeriodEndDate(), $payDate);
+        $this->assertEquals($pay, $pc->getGrossPay());
+        $this->assertEquals('Hold', $pc->getField('Disposition'));
+        $this->assertEquals(0.0, $pc->getDeductions());
+        $this->assertEquals($pay, $pc->getNetPay());
     }
 }
 
