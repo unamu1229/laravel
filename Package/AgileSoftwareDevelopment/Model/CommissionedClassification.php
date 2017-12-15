@@ -10,6 +10,8 @@ class CommissionedClassification implements PaymentClassification
     private $commissionRate;
     private $receipt;
 
+    const COMMISSIONED_UNIT = 1000000;
+
     public function __construct($salary, $commissionRate)
     {
         $this->salary = $salary;
@@ -45,5 +47,15 @@ class CommissionedClassification implements PaymentClassification
         return $this->receipt;
     }
 
+    public function calculatePay()
+    {
+        $totalReceiptAmount = 0;
+        foreach($this->receipt as $receipt) {
+            $totalReceiptAmount += $receipt->getAmount();
+        }
+        $commissionedSalary = $this->commissionRate * ($totalReceiptAmount / self::COMMISSIONED_UNIT);
+        $paySalary = $this->salary + $commissionedSalary;
 
+        return $paySalary;
+    }
 }

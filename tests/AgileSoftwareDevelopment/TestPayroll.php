@@ -212,6 +212,21 @@ class TestPayroll extends TestCase
         $this->validatePaycheck($pt, $empId, $payDate, 1000.0);
     }
 
+    public function testPayCommissionedEmployee()
+    {
+        $empId = 3;
+        $t = new AddCommissionedEmployee($empId, 'Abe', 'Sakai', 300000, 150000);
+        $t->execute();
+        $cct = new ChangeCommissionedTransaction($empId, 330000, 160000);
+        $cct->execute();
+        $sr = new SalesReceiptTransaction($empId,'20171129', '20000000');
+        $sr->execute();
+        $payDate = '2017-12-15';
+        $pt = new PaydayTransaction($payDate);
+        $pt->execute();
+        $this->validatePaycheck($pt, $empId, $payDate, 3530000);
+    }
+
     private function validatePaycheck(PaydayTransaction $pt, int $empId, $payDate, $pay)
     {
         $pc = $pt->getPaycheck($empId);
