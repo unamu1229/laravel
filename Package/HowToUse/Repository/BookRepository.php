@@ -4,6 +4,7 @@
 namespace Package\HowToUse\Repository;
 
 use App\Book;
+use Package\HowToUse\Domain\Model\ValueObject\UpdateBookNameData;
 
 class BookRepository
 {
@@ -38,6 +39,11 @@ class BookRepository
     public function getEloquentBuilder()
     {
         return $this->eloquentBuilder;
+    }
+
+    public function updateBookName(UpdateBookNameData $updateBookNameData)
+    {
+        $this->book->where('id', $updateBookNameData->getId())->update(['name' => $updateBookNameData->getName()]);
     }
 
 }
