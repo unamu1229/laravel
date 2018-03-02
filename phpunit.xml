@@ -40,9 +40,25 @@
             <file>tests/Salary/PaydayTest.php</file>-->
         </testsuite>
     </testsuites>
+    <!--<filter>-->
+        <!--<whitelist processUncoveredFilesFromWhitelist="true">-->
+            <!--<directory suffix=".php">./app</directory>-->
+        <!--</whitelist>-->
+    <!--</filter>-->
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./app</directory>
+
+            <!--ディレクトリを指定する方法-->
+            <directory suffix=".php">./Package/HowToUse</directory>
+
+            <!--ファイルを直接指定する方法-->
+            <!--<file>./Package/HowToUse/Repository/BookRepository.php</file>-->
+
+            <!--除外するディレクトリもしくは、ファイルを指定-->
+            <exclude>
+                <directory suffix=".php">./Package/HowToUse/Domain</directory>
+            <!--<file>/path/to/file</file>-->
+            </exclude>
         </whitelist>
     </filter>
     <php>
